@@ -1,0 +1,32 @@
+apiVersion: s3.onestein.nl/v1
+kind: Bucket
+metadata:
+  labels:
+    app.kubernetes.io/name: s3-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: bucket-sample
+spec:
+  name: s3-operator-test-bucket
+  deletionPolicy: Always
+---
+apiVersion: s3.onestein.nl/v1
+kind: Bucket
+metadata:
+  labels:
+    app.kubernetes.io/name: s3-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: bucket-sample-same-name
+spec:
+  name: s3-operator-test-bucket
+  deletionPolicy: Always
+---
+apiVersion: s3.onestein.nl/v1
+kind: Bucket
+metadata:
+  labels:
+    app.kubernetes.io/name: s3-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: bucket-sample-preserve
+spec:
+  name: s3-operator-test-bucket-preserve
+  deletionPolicy: Preserve

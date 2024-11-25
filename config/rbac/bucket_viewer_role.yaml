@@ -1,0 +1,23 @@
+# permissions for end users to view buckets.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: s3-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: bucket-viewer-role
+rules:
+- apiGroups:
+  - s3.onestein.nl
+  resources:
+  - buckets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - s3.onestein.nl
+  resources:
+  - buckets/status
+  verbs:
+  - get

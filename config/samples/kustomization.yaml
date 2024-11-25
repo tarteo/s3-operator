@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- s3_v1_bucket.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples
