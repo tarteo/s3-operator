@@ -1,8 +1,41 @@
 # s3-operator
-// TODO(user): Add simple overview of use/purpose
+Kubernetes operator to manage s3 buckets
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
+
+### Example:
+
+```yaml
+apiVersion: s3.onestein.nl/v1
+kind: Bucket
+metadata:
+  name: bucket-sample
+spec:
+  name: s3-operator-test-bucket
+  secret: "s3-credentials"
+  accessKey: "a-key-in-secret"
+  secretKey: "a-key-in-secret"
+  endpointKey: "a-key-in-secret"
+  deletionPolicy: Always
+status:
+  available: true
+  hash: "sha1-hash"
+```
+
+- `spec.name`: The name of bucket
+- `spec.secret`: Secret containing the S3 credentials
+- `spec.accessKey`: The key within the secret that contains the access key (default: "accessKey")
+- `spec.secretKey`: The key within the secret that contains the secret key (default: "secretKey")
+- `spec.endpointKey`: The key within the secret that contains the endpoint (default: "endpointKey")
+- `spec.deletionPolicy`: Determines what should happen with the bucket if the resource is deleted
+  Valid values are:
+  - "Always" (default): Deletes the bucket even if it contains objects;
+  - "OnlyIfEmpty": Only delete bucket if is has no objects
+  - "Preserve": Never delete the bucket
+- `status.available`: true if the bucket is present
+- `status.hash`: used in reconcilation
+
+**N.B.** When a bucket (CR) is deleted, it checks whether the bucket is used somewhere else before proceeding with the deletion.
 
 ## Getting Started
 
@@ -90,7 +123,6 @@ kubectl apply -f https://raw.githubusercontent.com/<org>/s3-operator/<tag or bra
 ```
 
 ## Contributing
-// TODO(user): Add detailed information on how you would like others to contribute to this project
 
 **NOTE:** Run `make help` for more information on all potential `make` targets
 

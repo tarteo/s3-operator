@@ -53,22 +53,22 @@ type BucketSpec struct {
 	// +kubebuilder:validation:XValidation:rule="self == oldSelf",message="AccessKey is immutable"
 	// +kubebuilder:validation:Immutable=true
 	// +optional
-	// The key in the secret that contains the S3 access key
+	// The key within the secret that contains the S3 access key
 	AccessKey string `json:"accessKey"`
 
 	// +kubebuilder:validation:XValidation:rule="self == oldSelf",message="SecretKey is immutable"
 	// +kubebuilder:default:="secretKey"
 	// +optional
-	// The key in the secret that contains the S3 secret key
+	// The key within the secret that contains the S3 secret key
 	SecretKey string `json:"secretKey"`
 
 	// +kubebuilder:validation:XValidation:rule="self == oldSelf",message="EndpointKey is immutable"
 	// +kubebuilder:default:="endpointKey"
 	// +optional
-	// The key in the secret that contains the endpoint
+	// The key within the secret that contains the endpoint
 	EndpointKey string `json:"endpointKey"`
 
-	// What supposed to happen with the bucket if the resource is deleted
+	// Determines what should happen with the bucket if the resource is deleted
 	// Valid values are:
 	// - "Always" (default): Deletes the bucket even if it contains objects;
 	// - "OnlyIfEmpty": Only delete bucket if is has no objects
