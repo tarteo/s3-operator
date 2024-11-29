@@ -39,9 +39,9 @@ status:
 
 ### Environment variables
 
-- `DEFAULT_S3_ENDPOINT`: Default endpoint applied when no secret (`spec.secret`) specified
-- `DEFAULT_S3_ACCESS_KEY`: Default access key applied when no secret (`spec.secret`) specified
-- `DEFAULT_S3_SECRET_KEY`: Default secret key applied when no secret (`spec.secret`) specified
+- `DEFAULT_S3_ENDPOINT`: Default endpoint applied when no secret (`spec.secret`) is specified
+- `DEFAULT_S3_ACCESS_KEY`: Default access key applied when no secret (`spec.secret`) is specified
+- `DEFAULT_S3_SECRET_KEY`: Default secret key applied when no secret (`spec.secret`) is specified
 - `DEFAULT_S3_REGION`: Default region applied when no region is specified
 
 ## Getting Started
