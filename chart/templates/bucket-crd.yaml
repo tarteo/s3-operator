@@ -1,10 +1,11 @@
----
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
+  name: buckets.s3.onestein.nl
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.4
-  name: buckets.s3.onestein.nl
+  labels:
+  {{- include "chart.labels" . | nindent 4 }}
 spec:
   group: s3.onestein.nl
   names:
@@ -40,8 +41,7 @@ spec:
             description: BucketSpec defines the desired state of Bucket.
             properties:
               accessKey:
-                description: The key within the secret that contains the S3 access
-                  key
+                description: The key within the secret that contains the S3 access key
                 type: string
                 x-kubernetes-validations:
                 - message: AccessKey is immutable
@@ -85,8 +85,7 @@ spec:
                   rule: self == oldSelf
               secretKey:
                 default: secretKey
-                description: The key within the secret that contains the S3 secret
-                  key
+                description: The key within the secret that contains the S3 secret key
                 type: string
                 x-kubernetes-validations:
                 - message: SecretKey is immutable
@@ -110,3 +109,9 @@ spec:
     storage: true
     subresources:
       status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

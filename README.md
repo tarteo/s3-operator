@@ -33,7 +33,7 @@ status:
   - "OnlyIfEmpty": Only delete bucket if is has no objects
   - "Preserve": Never delete the bucket
 - `status.available`: true if the bucket is present
-- `status.hash`: used in reconcilation
+- `status.hash`: used to check if a bucket is the same
 
 **N.B.** When a bucket (CR) is deleted, it checks whether the bucket is used somewhere else before proceeding with the deletion.
 
