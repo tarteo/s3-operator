@@ -26,8 +26,8 @@ spec:
         env:
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
-        {{- if .Values.controllerManager.manager.defaultEndpointSecret.name }}
         {{- with .Values.controllerManager.manager.defaultEndpointSecret }}
+        {{- if .name }}
         - name: DEFAULT_S3_ENDPOINT
           valueFrom:
             secretKeyRef:
