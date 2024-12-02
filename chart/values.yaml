@@ -20,6 +20,8 @@ controllerManager:
       requests:
         cpu: 10m
         memory: 64Mi
+    defaultEndpointSecret: {}
+    defaultRegion: 
   podSecurityContext:
     runAsNonRoot: true
   replicas: 1

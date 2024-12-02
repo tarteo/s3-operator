@@ -26,8 +26,30 @@ spec:
         env:
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
-        image: {{ .Values.controllerManager.manager.image.repository }}:{{ .Values.controllerManager.manager.image.tag
-          | default .Chart.AppVersion }}
+        {{- if .Values.controllerManager.manager.defaultEndpointSecret.name }}
+        {{- with .Values.controllerManager.manager.defaultEndpointSecret }}
+        - name: DEFAULT_S3_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: {{ .name }}
+              key: {{ .endpointKey | default "endpoint" }}
+        - name: DEFAULT_S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ .name }}
+              key: {{ .accessKey | default "accessKey"  }}
+        - name: DEFAULT_S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ .name }}
+              key: {{ .secretKey | default "secretKey"  }}
+        {{- end }}              
+        {{- end }}
+        {{- if .Values.controllerManager.manager.defaultRegion }}
+        - name: DEFAULT_S3_REGION
+          value: {{ .Values.controllerManager.manager.defaultRegion }}
+        {{- end }}
+        image: {{ .Values.controllerManager.manager.image.repository }}:{{ .Values.controllerManager.manager.image.tag | default .Chart.AppVersion }}
         imagePullPolicy: {{ .Values.controllerManager.manager.imagePullPolicy }}
         livenessProbe:
           httpGet:
