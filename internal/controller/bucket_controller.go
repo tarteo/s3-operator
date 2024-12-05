@@ -37,7 +37,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	s3v1 "github.com/onesteinbv/s3-operator/api/v1"
+	s3v1 "github.com/tarteo/s3-operator/api/v1"
 )
 
 // BucketReconciler reconciles a Bucket object

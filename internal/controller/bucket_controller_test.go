@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	s3v1 "github.com/onesteinbv/s3-operator/api/v1"
+	s3v1 "github.com/tarteo/s3-operator/api/v1"
 )
 
 var _ = Describe("Bucket Controller", func() {

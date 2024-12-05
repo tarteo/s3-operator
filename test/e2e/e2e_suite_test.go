@@ -25,7 +25,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/onesteinbv/s3-operator/test/utils"
+	"github.com/tarteo/s3-operator/test/utils"
 )
 
 var (

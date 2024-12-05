@@ -33,7 +33,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	s3v1 "github.com/onesteinbv/s3-operator/api/v1"
+	s3v1 "github.com/tarteo/s3-operator/api/v1"
 	// +kubebuilder:scaffold:imports
 )
 

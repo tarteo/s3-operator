@@ -1,4 +1,4 @@
-module github.com/onesteinbv/s3-operator
+module github.com/tarteo/s3-operator
 
 go 1.22.0
 

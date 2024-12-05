@@ -35,8 +35,8 @@ import (
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
-	s3v1 "github.com/onesteinbv/s3-operator/api/v1"
-	"github.com/onesteinbv/s3-operator/internal/controller"
+	s3v1 "github.com/tarteo/s3-operator/api/v1"
+	"github.com/tarteo/s3-operator/internal/controller"
 	// +kubebuilder:scaffold:imports
 )
 
