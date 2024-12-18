@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  s3-operator:
+  - apiVersion: v2
+    appVersion: 1.1.0
+    created: "2024-12-18T16:50:38.405383623Z"
+    description: Kubernetes operator to manage s3 buckets
+    digest: 42623f6f04ed765dee0a8d68185bd4f6fdca9ab6017112217360359fbba83f99
+    name: s3-operator
+    type: application
+    urls:
+    - https://github.com/tarteo/s3-operator/releases/download/helm-1.1.0/s3-operator-1.1.0.tgz
+    version: 1.1.0
+generated: "2024-12-18T16:50:38.405394994Z"
