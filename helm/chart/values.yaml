@@ -10,7 +10,7 @@ controllerManager:
         drop:
         - ALL
     image:
-      repository: ghcr.io/tarteo/s3-operator
+      repository: tarteo/s3-operator
       tag: "1.3.0"
     imagePullPolicy: Always
     resources:
