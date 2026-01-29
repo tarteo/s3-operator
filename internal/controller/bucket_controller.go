@@ -56,7 +56,7 @@ type S3ClientConfig struct {
 // +kubebuilder:rbac:groups=s3.onestein.nl,resources=buckets,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=s3.onestein.nl,resources=buckets/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=s3.onestein.nl,resources=buckets/finalizers,verbs=update
-// +kubebuilder:rbac:groups="",resources=secrets,verbs=get;list;watch
+// +kubebuilder:rbac:groups="",resources=secrets,verbs=get;list;watch;update
 // +kubebuilder:rbac:groups="",resources=secrets/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
