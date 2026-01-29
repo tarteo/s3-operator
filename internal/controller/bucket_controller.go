@@ -57,6 +57,7 @@ type S3ClientConfig struct {
 // +kubebuilder:rbac:groups=s3.onestein.nl,resources=buckets/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=s3.onestein.nl,resources=buckets/finalizers,verbs=update
 // +kubebuilder:rbac:groups="",resources=secrets,verbs=get;list;watch
+// +kubebuilder:rbac:groups="",resources=secrets/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -77,12 +78,28 @@ func (r *BucketReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 	}
 	const finalizer = "s3.onestein.nl/finalizer"
 
-	// Add finalizer
+	// Add finalizer to bucket if not present
 	if bucket.ObjectMeta.DeletionTimestamp.IsZero() && !controllerutil.ContainsFinalizer(&bucket, finalizer) {
 		controllerutil.AddFinalizer(&bucket, finalizer)
 		if err := r.Update(ctx, &bucket); err != nil {
 			log.Error(err, "unable to update bucket")
 			return ctrl.Result{}, err
+		}
+	}
+
+	// Add finalizer to secret if not present
+	if bucket.Spec.Secret != "" {
+		var secret core.Secret
+		if err := r.Get(ctx, types.NamespacedName{Namespace: bucket.Namespace, Name: bucket.Spec.Secret}, &secret); err != nil {
+			log.Error(err, "unable to get secret for bucket")
+			return ctrl.Result{}, err
+		}
+		if bucket.ObjectMeta.DeletionTimestamp.IsZero() && !controllerutil.ContainsFinalizer(&secret, finalizer) {
+			controllerutil.AddFinalizer(&secret, finalizer)
+			if err := r.Update(ctx, &secret); err != nil {
+				log.Error(err, "unable to update secret for bucket")
+				return ctrl.Result{}, err
+			}
 		}
 	}
 
@@ -148,11 +165,29 @@ func (r *BucketReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 			log.Info("bucket is still used in another resource, not deleting", "bucket", bucket.Spec.Name)
 		}
 
+		// Remove finalizer from bucket
 		controllerutil.RemoveFinalizer(&bucket, finalizer)
 		if err := r.Update(ctx, &bucket); err != nil {
 			log.Error(err, "unable to remove finalizer")
 			return ctrl.Result{}, err
 		}
+
+		// Remove finalizer from secret
+		if bucket.Spec.Secret != "" {
+			var secret core.Secret
+			if err := r.Get(ctx, types.NamespacedName{Namespace: bucket.Namespace, Name: bucket.Spec.Secret}, &secret); err != nil {
+				log.Error(err, "unable to get secret for bucket")
+				return ctrl.Result{}, err
+			}
+			if controllerutil.ContainsFinalizer(&secret, finalizer) {
+				controllerutil.RemoveFinalizer(&secret, finalizer)
+				if err := r.Update(ctx, &secret); err != nil {
+					log.Error(err, "unable to remove finalizer from secret")
+					return ctrl.Result{}, err
+				}
+			}
+		}
+
 		return ctrl.Result{}, nil
 	} else if !bucketExists {
 		// Create

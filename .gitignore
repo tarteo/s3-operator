@@ -28,3 +28,5 @@ go.work
 # Environments
 .env
 .env.testing
+
+__debug_*

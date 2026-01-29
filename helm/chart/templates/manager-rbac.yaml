@@ -14,6 +14,12 @@ rules:
   - list
   - watch
 - apiGroups:
+  - ""
+  resources:
+  - secrets/finalizers
+  verbs:
+  - update
+- apiGroups:
   - s3.onestein.nl
   resources:
   - buckets
